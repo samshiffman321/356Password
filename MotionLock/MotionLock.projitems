@@ -10,14 +10,14 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MotionLockPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SetupPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)MotionLockPage.xaml.cs">
-      <DependentUpon>MotionLockPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)SetupPage.cs">
+      <DependentUpon>SetupPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

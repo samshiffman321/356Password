@@ -8,7 +8,7 @@ namespace MotionLock
 		{
 			InitializeComponent ();
 
-			MainPage = new MotionLockPage ();
+			MainPage = new SetupPage ();
 		}
 
 		protected override void OnStart ()
