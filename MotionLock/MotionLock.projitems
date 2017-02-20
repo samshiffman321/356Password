@@ -19,5 +19,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)SetupPage.cs">
       <DependentUpon>SetupPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)PairDevice.cs" />
   </ItemGroup>
 </Project>
