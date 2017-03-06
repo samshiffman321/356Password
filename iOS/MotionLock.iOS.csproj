@@ -101,6 +101,15 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.2.3.3.180\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Robotics.Mobile.Core">
+      <HintPath>..\packages\Monkey.Robotics.0.5.2\lib\Xamarin.iOS10\Robotics.Mobile.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Robotics.Mobile.Core.iOS">
+      <HintPath>..\packages\Monkey.Robotics.0.5.2\lib\Xamarin.iOS10\Robotics.Mobile.Core.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
