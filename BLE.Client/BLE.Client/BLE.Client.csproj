@@ -71,6 +71,9 @@
     <Compile Include="Pages\DeviceListPage.xaml.cs">
       <DependentUpon>DeviceListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SetupPage.xaml.cs">
+      <DependentUpon>SetupPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.Settings, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -123,6 +126,9 @@
     <EmbeddedResource Include="Pages\DeviceListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\SetupPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

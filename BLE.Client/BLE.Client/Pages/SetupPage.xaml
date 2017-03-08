@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pages:BaseTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:BLE.Client.Pages;assembly=BLE.Client"
+             x:Class="BLE.Client.Pages.SetupPage"
+             Title="Setup"
+             x:Name="SetupPage">
+	<pages:BaseTabbedPage.Resources>
+	</pages:BaseTabbedPage.Resources>
+	<pages:BaseTabbedPage.Children>
+    <pages:BasePage Title="Scan for devices">
+      
+    </pages:BasePage>
+    <pages:BasePage Title="System devices">
+       
+    </pages:BasePage>
+  </pages:BaseTabbedPage.Children>
+
+</pages:BaseTabbedPage>
