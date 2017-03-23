@@ -71,6 +71,11 @@
     <Compile Include="Pages\DeviceListPage.xaml.cs">
       <DependentUpon>DeviceListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MotionLockCapture.cs" />
+    <Compile Include="ViewModels\MotionLockEntryViewModel.cs" />
+    <Compile Include="Pages\MotionLockEntryPage.xaml.cs">
+      <DependentUpon>MotionLockEntryPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.Settings, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -123,6 +128,9 @@
     <EmbeddedResource Include="Pages\DeviceListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\MotionLockEntryPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

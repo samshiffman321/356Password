@@ -10,6 +10,10 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
+using System;
+using System.IO;
+using BLE.Client.Pages;
+using BLE.Client.ViewModels;
 
 namespace BLE.Client.Helpers
 {
@@ -21,11 +25,13 @@ namespace BLE.Client.Helpers
         private IService _acelerometer;
         private IService _gyroscope;
         private bool Intent = false;
+		private MotionLockEntryViewModel _vm;
 
         public IList<IService> Services { get; private set; }
-        public MotionLockCapture(IDevice device)
+		public MotionLockCapture(IDevice device, MotionLockEntryViewModel vm)
         {
             _device = device;
+			_vm = vm;
             LoadServices();
         }
 
@@ -43,7 +49,7 @@ namespace BLE.Client.Helpers
             Services = await _device.GetServicesAsync();
             foreach (IService current_service in Services)
             {
-                if (current_service.Id.ToString().Substring(0,8).CompareTo("0000ffe1") == 0)
+                if (current_service.Id.ToString().Substring(0,7).CompareTo("0000ffe") == 0)
                 {
                     _buttons = current_service;
                 }
@@ -57,14 +63,15 @@ namespace BLE.Client.Helpers
 
         private void IntentFound(object sender, CharacteristicUpdatedEventArgs characteristicUpdatedEventArgs)
         {
-            if (button.Value.Equals(1) || button.Value.Equals(2) || button.Value.Equals(3))
-            {
-                Intent = true;
-                //COLLECT DATA                                                  `
-            }else if (button.Value.Equals(0) && Intent)
-            {
+			if (button.Value[0] == 1 || button.Value [0] == 2 || button.Value [0] == 3){
+				Intent = true;
+				//COLLECT DATA  
+				System.Diagnostics.Debug.WriteLine ("Something is happening");
+				_vm.CaptureState = "Capturing";
+			} else if (button.Value[0] == 0 && Intent){
                 Intent = false;
-                //INTERPERET DATA FROM DEVICE
+				//INTERPERET DATA FROM DEVICE
+				_vm.CaptureState = "Done Capturing";
             }
         }
 
