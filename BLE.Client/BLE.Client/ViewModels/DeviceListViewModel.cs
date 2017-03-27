@@ -13,6 +13,7 @@ using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
 using Plugin.Settings.Abstractions;
+using BLE.Client.Helpers;
 
 namespace BLE.Client.ViewModels
 {
@@ -259,7 +260,7 @@ namespace BLE.Client.ViewModels
         {
             if (await ConnectDeviceAsync(device))
             {
-                ShowViewModel<ServiceListViewModel>(new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, device.Device.Id.ToString() } }));
+				ShowViewModel<MotionLockEntryViewModel>(new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, device.Device.Id.ToString() } }));
             }
         }
 
