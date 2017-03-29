@@ -76,6 +76,10 @@
     <Compile Include="Pages\MotionLockEntryPage.xaml.cs">
       <DependentUpon>MotionLockEntryPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SetupPage.xaml.cs">
+      <DependentUpon>SetupPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\SetupViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.Settings, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -130,6 +134,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\MotionLockEntryPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\SetupPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
