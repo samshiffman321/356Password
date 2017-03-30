@@ -14,6 +14,8 @@ using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
 using Plugin.Settings.Abstractions;
 using BLE.Client.Helpers;
+using Xamarin.Forms;
+using System.Windows.Input;
 
 
 namespace BLE.Client.ViewModels
@@ -21,10 +23,12 @@ namespace BLE.Client.ViewModels
 	public class SetupViewModel : BaseViewModel
 	{
 		protected readonly IAdapter Adapter;
-		private IDevice _device;
 		private MotionLockCapture _capture;
 		private string type = "Motion";
-		public string Type {
+        private string _deviceName = "No Device Connected";
+        public ICommand ConnectDevice { protected set; get; }
+        public ICommand CreatePassword { protected set; get; }
+        public string Type {
 			get { return type; }
 			set {
 				type = value;
@@ -32,15 +36,30 @@ namespace BLE.Client.ViewModels
 			}
 		}
 
-		public SetupViewModel (IAdapter adapter) : base (adapter)
+        public string DeviceName
+        {
+            get { return _deviceName; }
+            set
+            {
+                type = value;
+                RaisePropertyChanged(() => DeviceName);
+            }
+        }
+
+        public SetupViewModel (IAdapter adapter) : base (adapter)
 		{
 			Adapter = adapter;
+            ConnectDevice = new Command((nothing) =>
+            {
+                ShowViewModel<DeviceListViewModel>();
 
-		}
+            });
+            CreatePassword = new Command((nothing) =>
+            {
+                ShowViewModel<MotionLockEntryViewModel>(new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, _device.Id.ToString() } }));
+            });
 
-		protected override void InitFromBundle (IMvxBundle bundle)
-		{
-			
-		}
+        }
+
 	}
 }

@@ -22,8 +22,6 @@ namespace BLE.Client.Helpers
         private IDevice _device;
         private IService _buttons;
         private ICharacteristic button;
-        private IService _acelerometer;
-        private IService _gyroscope;
         private bool Intent = false;
 		private MotionLockEntryViewModel _vm;
 
@@ -52,10 +50,6 @@ namespace BLE.Client.Helpers
                 if (current_service.Id.ToString().Substring(0,7).CompareTo("0000ffe") == 0)
                 {
                     _buttons = current_service;
-                }
-                else if (current_service.Id.ToString().Substring(0, 8).CompareTo("0000aa51") == 0)
-                {
-                    _gyroscope = current_service;
                 }
             }
             CapturePassword();

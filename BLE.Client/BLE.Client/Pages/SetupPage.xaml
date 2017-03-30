@@ -2,19 +2,27 @@
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:BLE.Client.Pages;assembly=BLE.Client"
-             x:Class="BLE.Client.Pages.SetupPage" Title="Setup">
+             x:Class="BLE.Client.Pages.SetupPage" Title="Setup Password">
 	<Grid>
 	    <Grid.RowDefinitions>
 	      <RowDefinition Height="Auto"></RowDefinition>
 	      <RowDefinition Height="*"></RowDefinition>
 	    </Grid.RowDefinitions>
-		<Picker x:Name="MotionLockType" SelectedIndex="{Binding Type}" HorizontalOptions="FillAndExpand">
+		  <Picker x:Name="MotionLockType" SelectedIndex="{Binding Type}" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
 	        <Picker.Items>
 	            <x:String>Motion</x:String> 
 	            <x:String>Orientation</x:String>
-				<x:String>Combination</x:String>
+				      <x:String>Combination</x:String>
 	        </Picker.Items>
 	    </Picker>
-	    <Label Text="{Binding CaptureState}"></Label>
+      <Label Grid.Row="1" Grid.ColumnSpan="2" FontSize = "20" Text="{Binding DeviceName}"  HorizontalOptions="Center" VerticalOptions="End"/>
+      <Button Grid.Row="2" Grid.Column="0" Text="Connect Device"
+            Command="{Binding ConnectDevice}"
+            HorizontalOptions="Center"
+            VerticalOptions="CenterAndExpand" />
+      <Button Grid.Row="2" Grid.Column="1" Text="Create Password"
+            Command="{Binding CreatePassword}"
+            HorizontalOptions="Center"
+            VerticalOptions="CenterAndExpand" />
   	</Grid>
 </pages:BasePage>

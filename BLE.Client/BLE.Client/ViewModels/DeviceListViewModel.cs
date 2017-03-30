@@ -23,6 +23,7 @@ namespace BLE.Client.ViewModels
         private readonly IUserDialogs _userDialogs;
         private readonly ISettings _settings;
         private Guid _previousGuid;
+        private BaseViewModel _vm;
         private CancellationTokenSource _cancellationTokenSource;
 
         public Guid PreviousGuid
@@ -80,6 +81,7 @@ namespace BLE.Client.ViewModels
             Adapter.DeviceConnectionLost += OnDeviceConnectionLost;
         }
 
+       
         private Task GetPreviousGuidAsync()
         {
             return Task.Run(() =>
@@ -168,6 +170,7 @@ namespace BLE.Client.ViewModels
 
         private void GetSystemConnectedOrPairedDevices()
         {
+
             try
             {
                 //heart rate
@@ -260,7 +263,8 @@ namespace BLE.Client.ViewModels
         {
             if (await ConnectDeviceAsync(device))
             {
-				ShowViewModel<MotionLockEntryViewModel>(new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, device.Device.Id.ToString() } }));
+                Close(this);
+                //_vm._device = device.Device;
             }
         }
 
