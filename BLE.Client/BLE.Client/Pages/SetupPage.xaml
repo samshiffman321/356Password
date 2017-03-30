@@ -8,11 +8,11 @@
 	      <RowDefinition Height="Auto"></RowDefinition>
 	      <RowDefinition Height="*"></RowDefinition>
 	    </Grid.RowDefinitions>
-		  <Picker x:Name="MotionLockType" SelectedIndex="{Binding Type}" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
+		  <Picker x:Name="MotionLockType" SelectedIndex="{Binding SelectedIndex}"  Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
 	        <Picker.Items>
 	            <x:String>Motion</x:String> 
 	            <x:String>Orientation</x:String>
-				      <x:String>Combination</x:String>
+				<x:String>Combination</x:String>
 	        </Picker.Items>
 	    </Picker>
       <Label Grid.Row="1" Grid.ColumnSpan="2" FontSize = "20" Text="{Binding DeviceName}"  HorizontalOptions="Center" VerticalOptions="End"/>

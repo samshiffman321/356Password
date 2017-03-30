@@ -24,31 +24,29 @@ namespace BLE.Client.ViewModels
 	{
 		protected readonly IAdapter Adapter;
 		private MotionLockCapture _capture;
-		private string type = "Motion";
-        private string _deviceName = "No Device Connected";
+		private int index = 0;
+		private string _deviceName;
         public ICommand ConnectDevice { protected set; get; }
         public ICommand CreatePassword { protected set; get; }
-        public string Type {
-			get { return type; }
+        public int SelectedIndex {
+			get { return index; }
 			set {
-				type = value;
-				RaisePropertyChanged (() => Type);
+				index = value;
+				RaisePropertyChanged (() => SelectedIndex);
 			}
 		}
 
         public string DeviceName
         {
-            get { return _deviceName; }
-            set
-            {
-                type = value;
-                RaisePropertyChanged(() => DeviceName);
-            }
+            get { return Adapter.ConnectedDevices.FirstOrDefault () != null ? Adapter.ConnectedDevices.FirstOrDefault ().Name : "No Device Connected"; }
+            
         }
 
         public SetupViewModel (IAdapter adapter) : base (adapter)
 		{
 			Adapter = adapter;
+
+
             ConnectDevice = new Command((nothing) =>
             {
                 ShowViewModel<DeviceListViewModel>();
@@ -56,7 +54,15 @@ namespace BLE.Client.ViewModels
             });
             CreatePassword = new Command((nothing) =>
             {
-                ShowViewModel<MotionLockEntryViewModel>(new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, _device.Id.ToString() } }));
+				string id = Adapter.ConnectedDevices.FirstOrDefault () != null ? Adapter.ConnectedDevices.FirstOrDefault ().Id.ToString () : null;
+
+				if (id != null){
+					ShowViewModel<MotionLockEntryViewModel> (new MvxBundle (new Dictionary<string, string> { { DeviceIdKey, id } }));
+				} else {
+					Application.Current.MainPage.DisplayAlert ("No Device Connected", "You must connect to a device before entering password", "OK");
+				}
+
+                
             });
 
         }
