@@ -8,6 +8,10 @@
 	      <RowDefinition Height="Auto"></RowDefinition>
 	      <RowDefinition Height="*"></RowDefinition>
 	    </Grid.RowDefinitions>
-	    <Label Text="{Binding CaptureState}"></Label>
+	    <Label Grid.Row="0" Text="{Binding CaptureState}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
+      <Button Grid.Row="1" Text="Accept Password"
+          Command="{Binding AcceptPassword}"
+          HorizontalOptions="Center"
+          VerticalOptions="CenterAndExpand" />
   	</Grid>
 </pages:BasePage>

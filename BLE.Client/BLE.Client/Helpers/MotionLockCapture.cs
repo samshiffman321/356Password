@@ -64,7 +64,7 @@ namespace BLE.Client.Helpers
 				_vm.CaptureState = "Capturing";
 			} else if (button.Value[0] == 0 && Intent){
                 Intent = false;
-				//INTERPERET DATA FROM DEVICE
+                _vm.Password = "THIS IS WHERE PASSWORD IS RECORDED";
 				_vm.CaptureState = "Done Capturing";
             }
         }

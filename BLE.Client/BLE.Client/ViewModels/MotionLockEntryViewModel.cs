@@ -14,6 +14,8 @@ using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
 using Plugin.Settings.Abstractions;
 using BLE.Client.Helpers;
+using Xamarin.Forms;
+using System.Windows.Input;
 
 
 namespace BLE.Client.ViewModels
@@ -23,7 +25,9 @@ namespace BLE.Client.ViewModels
 		protected readonly IAdapter Adapter;
 		private IDevice _device;
 		private MotionLockCapture _capture;
-		private string captureState = "Not Capturing";
+        private String _password;
+        public ICommand AcceptPassword { protected set; get; }
+        private string captureState = "Not Capturing";
 		public string CaptureState
 		{
 			get { return captureState; }
@@ -34,11 +38,23 @@ namespace BLE.Client.ViewModels
 			}
 		}
 
-		public MotionLockEntryViewModel (IAdapter adapter) : base(adapter)
+        public String Password
+        {
+            set
+            {
+                _password = value;
+            }
+        }
+
+        public MotionLockEntryViewModel (IAdapter adapter) : base(adapter)
 		{
 			Adapter = adapter;
-
-		}
+            AcceptPassword = new Command((nothing) =>
+            {
+                MessagingCenter.Send<BaseViewModel,String>(this, "Password",_password);
+                Close(this);
+            });
+        }
 
 		protected override void InitFromBundle(IMvxBundle bundle){
 			_device = GetDeviceFromBundle (bundle);

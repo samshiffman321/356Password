@@ -23,9 +23,11 @@ namespace BLE.Client.ViewModels
 	public class SetupViewModel : BaseViewModel
 	{
 		protected readonly IAdapter Adapter;
-		private MotionLockCapture _capture;
-		private int index = 0;
-		private string _deviceName;
+        private readonly ISettings _settings;
+        private int index = 0;
+        private string _password;
+        private Boolean _finishVisible = false;
+        public ICommand FinishButton { protected set; get; }
         public ICommand ConnectDevice { protected set; get; }
         public ICommand CreatePassword { protected set; get; }
         public int SelectedIndex {
@@ -35,6 +37,24 @@ namespace BLE.Client.ViewModels
 				RaisePropertyChanged (() => SelectedIndex);
 			}
 		}
+        public Boolean Finish
+        {
+            get { return !_finishVisible; }
+            set
+            {
+                RaisePropertyChanged(() => Finish);
+            }
+        }
+        public Boolean FinishVisible
+        {
+            get { return _finishVisible; }
+            set
+            {
+                _finishVisible = value;
+                RaisePropertyChanged(() => FinishVisible);
+                Finish = !value;
+            }
+        }
 
         public string DeviceName
         {
@@ -42,14 +62,30 @@ namespace BLE.Client.ViewModels
             
         }
 
-        public SetupViewModel (IAdapter adapter) : base (adapter)
+        public String Password
+        {
+            set
+            {
+                _password = value;
+                _settings.AddOrUpdateValue("password", _password);
+                RaisePropertyChanged();
+            }
+        }
+
+        public SetupViewModel (IAdapter adapter, ISettings settings) : base (adapter)
 		{
 			Adapter = adapter;
+            _settings = settings;
 
 
             ConnectDevice = new Command((nothing) =>
             {
                 ShowViewModel<DeviceListViewModel>();
+
+            });
+            FinishButton = new Command((nothing) =>
+            {
+                //MOVE TO LIST
 
             });
             CreatePassword = new Command((nothing) =>
@@ -64,7 +100,13 @@ namespace BLE.Client.ViewModels
 
                 
             });
-
+            MessagingCenter.Subscribe<BaseViewModel>(this, "Reload", (sender) => {
+                var device = DeviceName;
+            });
+            MessagingCenter.Subscribe<BaseViewModel, String>(this, "Password", (sender, arg) => {
+                Password = arg;
+                FinishVisible = true;
+            });
         }
 
 	}

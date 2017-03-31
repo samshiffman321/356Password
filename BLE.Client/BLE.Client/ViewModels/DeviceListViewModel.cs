@@ -14,6 +14,7 @@ using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
 using Plugin.Settings.Abstractions;
 using BLE.Client.Helpers;
+using Xamarin.Forms;
 
 namespace BLE.Client.ViewModels
 {
@@ -170,7 +171,7 @@ namespace BLE.Client.ViewModels
 
         private void GetSystemConnectedOrPairedDevices()
         {
-
+            
             try
             {
                 //heart rate
@@ -264,7 +265,7 @@ namespace BLE.Client.ViewModels
             if (await ConnectDeviceAsync(device))
             {
                 Close(this);
-                //_vm._device = device.Device;
+                MessagingCenter.Send<BaseViewModel>(this, "Reload");
             }
         }
 
