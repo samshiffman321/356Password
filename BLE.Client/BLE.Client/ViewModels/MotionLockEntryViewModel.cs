@@ -24,8 +24,9 @@ namespace BLE.Client.ViewModels
 	{
 		protected readonly IAdapter Adapter;
 		private IDevice _device;
+		private ISettings _settings;
 		private MotionLockCapture _capture;
-        private String _password;
+        private string _password;
         public ICommand AcceptPassword { protected set; get; }
         private string captureState = "Not Capturing";
 		public string CaptureState
@@ -38,20 +39,24 @@ namespace BLE.Client.ViewModels
 			}
 		}
 
-        public String Password
+        public string Password
         {
             set
             {
                 _password = value;
+				RaisePropertyChanged ();
             }
         }
 
-        public MotionLockEntryViewModel (IAdapter adapter) : base(adapter)
+        public MotionLockEntryViewModel (IAdapter adapter, ISettings settings) : base(adapter)
 		{
 			Adapter = adapter;
+			_settings = settings;
             AcceptPassword = new Command((nothing) =>
             {
-                MessagingCenter.Send<BaseViewModel,String>(this, "Password",_password);
+				//this is where you will set the password after it is generated
+				_settings.AddOrUpdateValue ("password", _password);
+                MessagingCenter.Send<BaseViewModel>(this, "Password");
                 Close(this);
             });
         }

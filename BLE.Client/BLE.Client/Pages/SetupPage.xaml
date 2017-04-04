@@ -8,14 +8,7 @@
 	      <RowDefinition Height="Auto"></RowDefinition>
 	      <RowDefinition Height="*"></RowDefinition>
 	    </Grid.RowDefinitions>
-      <Label Grid.Row="0" Grid.Column="0" FontSize = "15" Text="Password Type:"  HorizontalOptions="Center" VerticalOptions="Center"/>
-		  <Picker x:Name="MotionLockType" SelectedIndex="{Binding SelectedIndex}"  Grid.Row="0" Grid.Column="1">
-	        <Picker.Items>
-	            <x:String>Motion</x:String> 
-	            <x:String>Orientation</x:String>
-				      <x:String>Combination</x:String>
-	        </Picker.Items>
-	    </Picker>
+      
       <Label Grid.Row="1" Grid.ColumnSpan="2" FontSize = "20" Text="{Binding DeviceName}"  HorizontalOptions="Center" VerticalOptions="End"/>
       <Button Grid.Row="2" Grid.Column="0" Text="Connect Device"
             Command="{Binding ConnectDevice}"

@@ -24,19 +24,10 @@ namespace BLE.Client.ViewModels
 	{
 		protected readonly IAdapter Adapter;
         private readonly ISettings _settings;
-        private int index = 0;
-        private string _password;
         private Boolean _finishVisible = false;
         public ICommand FinishButton { protected set; get; }
         public ICommand ConnectDevice { protected set; get; }
         public ICommand CreatePassword { protected set; get; }
-        public int SelectedIndex {
-			get { return index; }
-			set {
-				index = value;
-				RaisePropertyChanged (() => SelectedIndex);
-			}
-		}
         public Boolean Finish
         {
             get { return !_finishVisible; }
@@ -58,18 +49,8 @@ namespace BLE.Client.ViewModels
 
         public string DeviceName
         {
-            get { return Adapter.ConnectedDevices.FirstOrDefault () != null ? Adapter.ConnectedDevices.FirstOrDefault ().Name : "No Device Connected"; }
+            get { return Adapter.ConnectedDevices.FirstOrDefault () != null ? "Connected to " + Adapter.ConnectedDevices.FirstOrDefault ().Name : "No Device Connected"; }
             
-        }
-
-        public String Password
-        {
-            set
-            {
-                _password = value;
-                _settings.AddOrUpdateValue("password", _password);
-                RaisePropertyChanged();
-            }
         }
 
         public SetupViewModel (IAdapter adapter, ISettings settings) : base (adapter)
@@ -101,10 +82,12 @@ namespace BLE.Client.ViewModels
                 
             });
             MessagingCenter.Subscribe<BaseViewModel>(this, "Reload", (sender) => {
-                var device = DeviceName;
+				RaisePropertyChanged (() => DeviceName);
             });
-            MessagingCenter.Subscribe<BaseViewModel, String>(this, "Password", (sender, arg) => {
-                Password = arg;
+            MessagingCenter.Subscribe<BaseViewModel>(this, "Password", (sender) => {
+
+				//do something with the password here
+                var test = _settings.GetValueOrDefault<string> ("password", null);
                 FinishVisible = true;
             });
         }
