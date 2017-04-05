@@ -11,6 +11,7 @@ namespace BLE.Client.ViewModels
     public class BaseViewModel : MvxViewModel
     {
         protected readonly IAdapter Adapter;
+        public IDevice _device;
         protected const string DeviceIdKey = "DeviceIdNavigationKey";
         protected const string ServiceIdKey = "ServiceIdNavigationKey";
         protected const string CharacteristicIdKey = "CharacteristicIdNavigationKey";

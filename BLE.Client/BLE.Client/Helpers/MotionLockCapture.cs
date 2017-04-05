@@ -22,8 +22,6 @@ namespace BLE.Client.Helpers
         private IDevice _device;
         private IService _buttons;
         private ICharacteristic button;
-        private IService _acelerometer;
-        private IService _gyroscope;
         private bool Intent = false;
 		private MotionLockEntryViewModel _vm;
 
@@ -53,10 +51,6 @@ namespace BLE.Client.Helpers
                 {
                     _buttons = current_service;
                 }
-                else if (current_service.Id.ToString().Substring(0, 8).CompareTo("0000aa51") == 0)
-                {
-                    _gyroscope = current_service;
-                }
             }
             CapturePassword();
         }
@@ -70,7 +64,8 @@ namespace BLE.Client.Helpers
 				_vm.CaptureState = "Capturing";
 			} else if (button.Value[0] == 0 && Intent){
                 Intent = false;
-				//INTERPERET DATA FROM DEVICE
+				//this password won't get set if intent isn't set to true, meaning you need to click the button 
+                _vm.Password = "THIS IS WHERE PASSWORD IS RECORDED";
 				_vm.CaptureState = "Done Capturing";
             }
         }
