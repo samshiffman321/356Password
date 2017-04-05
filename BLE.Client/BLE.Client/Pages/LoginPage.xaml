@@ -11,13 +11,11 @@
            VerticalOptions="CenterAndExpand" />
 		
 		<Button Text="Enter Password" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"
-			 Command="{Binding Click}"/>
-
-		<!-- Connected, not connected [could be a button to go to a connect to page] -->
-		<Label Text="[Device Status]" 
-           Font="Small"
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+			 Command="{Binding EnterPassword}"/>
 		
+		<Button Text="Connect to Device" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"
+			 Command="{Binding DeviceListClick}"/>
+
+
 	</StackLayout>
 </pages:BasePage>
