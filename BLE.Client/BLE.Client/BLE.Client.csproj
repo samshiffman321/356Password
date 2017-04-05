@@ -76,15 +76,12 @@
     <Compile Include="Pages\MotionLockEntryPage.xaml.cs">
       <DependentUpon>MotionLockEntryPage.xaml</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="Pages\LoginPage.xaml.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-=======
     <Compile Include="Pages\SetupPage.xaml.cs">
       <DependentUpon>SetupPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\SetupViewModel.cs" />
->>>>>>> master
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.Settings, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
