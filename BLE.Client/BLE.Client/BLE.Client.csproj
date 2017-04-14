@@ -84,6 +84,10 @@
       <DependentUpon>SetupPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\SetupViewModel.cs" />
+    <Compile Include="Pages\MotionLockVaultList.xaml.cs">
+      <DependentUpon>MotionLockVaultList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MotionLockVaultList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.Settings, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -144,6 +148,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\SetupPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\MotionLockVaultList.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
