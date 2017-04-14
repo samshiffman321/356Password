@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:pages="clr-namespace:BLE.Client.Pages;assembly=BLE.Client" 
+	x:Class="BLE.Client.Pages.LoginPage" 
+	Title="Motion Lock">
+	<StackLayout>
+		<Label Text="Login"
+           Font="Large"
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" />
+		
+		<Button Text="Enter Password" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"
+			 Command="{Binding EnterPassword}"/>
+		
+		<Button Text="Connect to Device" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"
+			 Command="{Binding DeviceListClick}"/>
+
+
+	</StackLayout>
+</pages:BasePage>
