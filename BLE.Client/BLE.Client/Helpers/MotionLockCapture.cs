@@ -11,7 +11,9 @@ using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using BLE.Client.Pages;
 using BLE.Client.ViewModels;
 
@@ -22,6 +24,8 @@ namespace BLE.Client.Helpers
         private IDevice _device;
         private IService _buttons;
         private ICharacteristic button;
+        private IService _movement;
+        private ICharacteristic movementData;
         private bool Intent = false;
 		private MotionLockEntryViewModel _vm;
 
@@ -42,6 +46,18 @@ namespace BLE.Client.Helpers
             await button.StartUpdatesAsync();
         }
 
+        private async void MovementConfig()
+        {
+            IList<ICharacteristic> characteristics = await _movement.GetCharacteristicsAsync();
+
+            await characteristics[1].WriteAsync(new byte[] {0x07, 0x00}); // Set config bit to get data
+            //await characteristics[2].WriteAsync(new byte[] {0x0A}); // Set period to 100ms
+            movementData = characteristics[0];
+            movementData.ValueUpdated -= UpdateGyroData;
+            movementData.ValueUpdated += UpdateGyroData;
+            await movementData.StartUpdatesAsync();
+        }
+
         private async void LoadServices()
         {
             Services = await _device.GetServicesAsync();
@@ -50,9 +66,13 @@ namespace BLE.Client.Helpers
                 if (current_service.Id.ToString().Substring(0,7).CompareTo("0000ffe") == 0)
                 {
                     _buttons = current_service;
+                } else if (current_service.Id.ToString().Substring(0, 8).CompareTo("f000aa80") == 0)
+                {
+                    _movement = current_service;
                 }
             }
             CapturePassword();
+            MovementConfig();
         }
 
         private void IntentFound(object sender, CharacteristicUpdatedEventArgs characteristicUpdatedEventArgs)
@@ -61,12 +81,29 @@ namespace BLE.Client.Helpers
 				Intent = true;
 				//COLLECT DATA  
 				System.Diagnostics.Debug.WriteLine ("Something is happening");
-				_vm.CaptureState = "Capturing";
+			    //_vm.CaptureState = string.Concat(movementData.Value.Select(b => Convert.ToString(b, 2).PadLeft(8, '0')));
+
 			} else if (button.Value[0] == 0 && Intent){
-                Intent = false;
+                //Intent = false;
 				//this password won't get set if intent isn't set to true, meaning you need to click the button 
                 _vm.Password = "THIS IS WHERE PASSWORD IS RECORDED";
 				_vm.CaptureState = "Done Capturing";
+            }
+        }
+
+        private void UpdateGyroData(object sender, CharacteristicUpdatedEventArgs characteristicUpdatedEventArgs)
+        {
+            if (Intent)
+            {
+                var moveData = movementData.Value;
+                short gyroX = BitConverter.ToInt16(new byte[2] {moveData[0], moveData[1]}, 0);
+                var xDeg = (gyroX * 1.0) / (65536 / 500);
+                short gyroY = BitConverter.ToInt16(new byte[2] { moveData[2], moveData[3] }, 0); ;
+                var yDeg = (gyroY * 1.0) / (65536 / 500);
+                short gyroZ = BitConverter.ToInt16(new byte[2] { moveData[4], moveData[5] }, 0); ;
+                var zDeg = (gyroZ * 1.0) / (65536 / 500);
+
+                _vm.CaptureState = xDeg + " deg/s\n" + yDeg + " deg/s\n" + zDeg + " deg/s";
             }
         }
 
