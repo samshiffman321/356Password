@@ -37,7 +37,7 @@ namespace BLE.Client.Helpers
             LoadServices();
         }
 
-        private async void CapturePassword()
+		private async Task CapturePassword()
         {
             IList<ICharacteristic> characteristics = await _buttons.GetCharacteristicsAsync();
             button = characteristics[0];
@@ -46,13 +46,13 @@ namespace BLE.Client.Helpers
             await button.StartUpdatesAsync();
         }
 
-        private async void MovementConfig()
+        private async Task MovementConfig()
         {
-            IList<ICharacteristic> characteristics = await _movement.GetCharacteristicsAsync();
+            IList<ICharacteristic> mov_characteristics = await _movement.GetCharacteristicsAsync();
 
-            await characteristics[1].WriteAsync(new byte[] {0x07, 0x00}); // Set config bit to get data
+            await mov_characteristics[1].WriteAsync(new byte[] {0x07, 0x00}); // Set config bit to get data
             //await characteristics[2].WriteAsync(new byte[] {0x0A}); // Set period to 100ms
-            movementData = characteristics[0];
+            movementData = mov_characteristics[0];
             movementData.ValueUpdated -= UpdateGyroData;
             movementData.ValueUpdated += UpdateGyroData;
             await movementData.StartUpdatesAsync();
@@ -71,8 +71,8 @@ namespace BLE.Client.Helpers
                     _movement = current_service;
                 }
             }
-            CapturePassword();
-            MovementConfig();
+            await CapturePassword();
+            await MovementConfig();
         }
 
         private void IntentFound(object sender, CharacteristicUpdatedEventArgs characteristicUpdatedEventArgs)
