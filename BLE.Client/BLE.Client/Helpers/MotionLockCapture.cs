@@ -51,7 +51,7 @@ namespace BLE.Client.Helpers
             IList<ICharacteristic> mov_characteristics = await _movement.GetCharacteristicsAsync();
 
             await mov_characteristics[1].WriteAsync(new byte[] {0x07, 0x00}); // Set config bit to get data
-            //await characteristics[2].WriteAsync(new byte[] {0x0A}); // Set period to 100ms
+            await mov_characteristics[2].WriteAsync(new byte[] {0x0A}); // Set period to 100ms
             movementData = mov_characteristics[0];
             movementData.ValueUpdated -= UpdateGyroData;
             movementData.ValueUpdated += UpdateGyroData;
